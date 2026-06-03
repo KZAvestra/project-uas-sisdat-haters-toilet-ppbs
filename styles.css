@@ -1,0 +1,58 @@
+.fade-up{
+    opacity:0;
+    transform:translateY(50px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.fade-up.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.nav-link-custom{
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
+
+.active-link{
+    position: relative;
+    font-weight: 500;
+}
+
+.active-link::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: white;
+}
+
+.text-light{
+    position: relative;
+}
+
+.text-light::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    bottom:-6px;
+    width:0;
+    height:2px;
+    background:#d4af37;
+    transition:all .3s ease;
+    transform:translateX(-50%);
+}
+
+.text-light:hover::after,
+.active-link::after{
+    width:100%;
+}
+
+.table img:hover{
+    transform:scale(1.08);
+}
