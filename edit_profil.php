@@ -213,11 +213,12 @@ if (isset($_POST['update'])) {
         </style>
     </head>
 
+    <body style="background:#0d0d0d;color:white;"> </body>
     
     <body>
         <div class="box">
 
-            <a href="home.php" class="btn-x">X</a>
+            <a href="home.php" class="btn-x">✕</a>
 
             <h2>EDIT PROFIL</h2>
 

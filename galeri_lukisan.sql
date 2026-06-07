@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2026 at 12:34 PM
+-- Generation Time: Jun 07, 2026 at 07:42 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,11 @@ CREATE TABLE `lukisan` (
 
 INSERT INTO `lukisan` (`id_lukisan`, `nama_lukisan`, `deskripsi`, `tahun_dibuat`, `harga`, `id_pelukis`, `gambar`, `status`) VALUES
 (4, 'Small World', 'Sempit banget dunia woi', 2025, 3000000.00, 1, 'smallworld.jpeg', 'tersedia'),
-(5, 'New Person', 'Ga berubah, cuma jujur', 2026, 3000000.00, 1, 'newperson.jpeg', 'tersedia'),
+(5, 'New Person', 'Ga berubah, cuma jujur', 2026, 3000000.00, 1, 'newperson.jpeg', 'terjual'),
 (6, 'The Scream', 'Gambar orang teriak', 1893, 15000000.00, 4, '960px-The_Scream.jpg', 'terjual'),
-(14, 'まぼろは', 'Two sides', 2026, 7000000.00, 6, 'maboroha.jpeg', 'terjual');
+(14, 'まぼろは', 'Two sides', 2026, 7000000.00, 6, 'maboroha.jpeg', 'terjual'),
+(15, 'Geeked Out', 'how it lowkenually feels to be geeked out', 2021, 4000000.00, 2, 'geeked out.png', 'tersedia'),
+(16, 'Tweaking', 'nah this bro tweaking', 2022, 4000000.00, 2, 'tweaking.png', 'tersedia');
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,8 @@ CREATE TABLE `pembelian` (
 
 INSERT INTO `pembelian` (`id_pembelian`, `tgl_beli`, `id_lukisan`, `metode`, `id_user`) VALUES
 (1, '2026-05-16', 6, 'Transfer Bank', 2),
-(7, '2026-05-31', 14, 'Transfer Bank', 7);
+(7, '2026-05-31', 14, 'Transfer Bank', 7),
+(10, '2026-06-07', 5, 'Kartu Kredit', 7);
 
 -- --------------------------------------------------------
 
@@ -120,8 +123,9 @@ INSERT INTO `user` (`id_user`, `username`, `email`, `nama`, `password`, `role`) 
 (4, 'thoriq1000', NULL, 'Thoriq', '2345', 'member'),
 (5, 'shanaraa', NULL, 'Nara', '3456', 'member'),
 (6, 'naurrra28', NULL, 'Naura', '4567', 'member'),
-(7, 'fufufafa', NULL, 'Gibran', '5678', 'member'),
-(8, 'kenzo3771', NULL, 'Kenzo', '5678', 'member');
+(7, 'fufufafa', 'fufufafa@gmail.com', 'Gibran', '5678', 'member'),
+(8, 'kenzo3771', NULL, 'Kenzo', '5678', 'member'),
+(1234570, 'testdummy1', 'test@gmail.com', 'Test', 'test1234', 'member');
 
 --
 -- Indexes for dumped tables
@@ -161,7 +165,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `lukisan`
 --
 ALTER TABLE `lukisan`
-  MODIFY `id_lukisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_lukisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pelukis`
@@ -173,13 +177,13 @@ ALTER TABLE `pelukis`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1234569;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1234571;
 
 --
 -- Constraints for dumped tables
