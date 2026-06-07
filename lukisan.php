@@ -112,7 +112,7 @@ if(isset($_POST['submit'])) {
     <title>Galeri Lukisan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1">
 </head>
 
 <body style="background:#0d0d0d;color:white;">
@@ -140,100 +140,118 @@ if(isset($_POST['submit'])) {
                 </div>
             </nav>
 
-        <div class="glass-card fade-up mb-5">
-            <h3>Tambah / Edit Data Lukisan</h3>
-            <div class="card-body">
+        <div class="modal-container" id="modalContainer">
+            <div class="custom-modal">
+                <div class="modal-header-custom">
+                    <h3>
+                        <?php echo ($op == 'edit') ? 'Edit Lukisan' : 'Tambah Lukisan'; ?>
+                    </h3>
 
-                <?php
-                if($error) {
-                ?>
-                    <div class="alert alert-danger" role="alert"> <?php echo $error ?> </div>
-                <?php
-                    header("refresh:3;url=lukisan.php");
-                }
-                ?>
-                <?php
-                if($sukses) {
-                ?>
-                    <div class="alert alert-success" role="alert"> <?php echo $sukses ?> </div>
-                <?php
-                    header("refresh:3;url=lukisan.php");
-                }
-                ?>
+                    <button id="closeModal" class="close-btn">
+                        ✕
+                    </button>
+                </div>
 
-                <form action="" method="POST" enctype="multipart/form-data">
+                <div class="modal-body-custom">
+                     <?php
+                    if($error) {
+                    ?>
+                        <div class="alert alert-danger" role="alert"> <?php echo $error ?> </div>
+                    <?php
+                        header("refresh:3;url=lukisan.php");
+                    }
+                    ?>
+                    <?php
+                    if($sukses) {
+                    ?>
+                        <div class="alert alert-success" role="alert"> <?php echo $sukses ?> </div>
+                    <?php
+                        header("refresh:3;url=lukisan.php");
+                    }
+                    ?>
 
-                    <div class="mb-3 row">
-                        <label for="nama_lukisan" class="col-sm-2 col-form-label">Nama Lukisan</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama_lukisan" name="nama_lukisan" value="<?php echo $nama_lukisan ?>">
+                    <form action="" method="POST" enctype="multipart/form-data">
+
+                        <div class="mb-3 row">
+                            <label for="nama_lukisan" class="col-sm-2 col-form-label">Nama Lukisan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nama_lukisan" name="nama_lukisan" value="<?php echo $nama_lukisan ?>">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="<?php echo $deskripsi ?>">
+                        <div class="mb-3 row">
+                            <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="<?php echo $deskripsi ?>">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="tahun_dibuat" class="col-sm-2 col-form-label">Tahun Dibuat</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tahun_dibuat" name="tahun_dibuat" value="<?php echo $tahun_dibuat ?>">
+                        <div class="mb-3 row">
+                            <label for="tahun_dibuat" class="col-sm-2 col-form-label">Tahun Dibuat</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="tahun_dibuat" name="tahun_dibuat" value="<?php echo $tahun_dibuat ?>">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="id_pelukis" class="col-sm-2 col-form-label">Pelukis</label>
-                        <div class="col-sm-10">
-                            <select name="id_pelukis" class="form-select">
-                                <option value="">-- Pilih Pelukis --</option>
-                                <?php
-                                $pel = mysqli_query($koneksi, "SELECT * FROM pelukis");
-                                while($p = mysqli_fetch_array($pel)) {
-                                    $selected = "";
-                                    if($id_pelukis == $p['id_pelukis']) {
-                                        $selected = "selected";
+                        <div class="mb-3 row">
+                            <label for="id_pelukis" class="col-sm-2 col-form-label">Pelukis</label>
+                            <div class="col-sm-10">
+                                <select name="id_pelukis" class="form-select">
+                                    <option value="">-- Pilih Pelukis --</option>
+                                    <?php
+                                    $pel = mysqli_query($koneksi, "SELECT * FROM pelukis");
+                                    while($p = mysqli_fetch_array($pel)) {
+                                        $selected = "";
+                                        if($id_pelukis == $p['id_pelukis']) {
+                                            $selected = "selected";
+                                        }
+                                        echo "
+                                            <option value='{$p['id_pelukis']}' $selected>
+                                                {$p['nama_pelukis']}
+                                            </option>
+                                        ";
                                     }
-                                    echo "
-                                        <option value='{$p['id_pelukis']}' $selected>
-                                            {$p['nama_pelukis']}
-                                        </option>
-                                    ";
-                                }
-                                ?>
-                            </select>
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="harga" class="col-sm-2 col-form-label">Harga Jual</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="harga" name="harga" value="<?php echo $harga ?>">
+                        <div class="mb-3 row">
+                            <label for="harga" class="col-sm-2 col-form-label">Harga Jual</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="harga" name="harga" value="<?php echo $harga ?>">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3 row">
-                        <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
-                        <div class="col-sm-10">
-                            <input type="file" accept=".jpg, .jpeg, .png" class="form-control" id="gambar" name="gambar">
-                            <input type="hidden" name="gambar_lama" value="<?php echo $gambar ?>">
+                        <div class="mb-3 row">
+                            <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
+                            <div class="col-sm-10">
+                                <input type="file" accept=".jpg, .jpeg, .png" class="form-control" id="gambar" name="gambar">
+                                <input type="hidden" name="gambar_lama" value="<?php echo $gambar ?>">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12">
-                        <input type="submit" name="submit" value="Submit" class="btn-dark-custom">
-                    </div>
+                        <div class="col-12">
+                            <input type="submit" name="submit" value="Submit" class="btn-dark-custom">
+                        </div>
 
-                </form>
+                    </form>
+
+                </div>
+
             </div>
+
         </div>
 
         <div class="hero fade-up">
             <h1>KOLEKSI LUKISAN</h1>
             <div class="gold-line"></div>
-            <p>Kelola data lukisan dalam sistem inventaris galeri dengan mudah dan terstruktur.</p>
+        </div>
+
+        <div class="text-end mb-4 fade-up">
+            <button id="openModal" class="btn-dark-custom">
+                + Tambah Lukisan
+            </button>
         </div>
 
                <table class="table table-hover align-middle fade-up">
@@ -308,139 +326,13 @@ if(isset($_POST['submit'])) {
 
     </div>
 
-<style>
-
-    body{
-        background:#050505;
-        color:white;
-        font-family: "Segoe UI", sans-serif;
-    }
-
-    .hero{
-        text-align:center;
-        padding:80px 0 50px;
-    }
-
-    .hero h1{
-        font-family:"Times New Roman", serif;
-        font-size:70px;
-        letter-spacing:3px;
-    }
-
-    .hero p{
-        color:#bdbdbd;
-        margin-top:15px;
-    }
-
-    .gold-line{
-        width:250px;
-        height:2px;
-        background:#c9a96e;
-        margin:20px auto;
-    }
-
-    .glass-card{
-        max-width: 850px;
-        margin: 0 auto 50px auto;
-
-        background: rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    }
-
-    .glass-card h3{
-        color:#d4af37;
-        font-family:'Cormorant Garamond', serif;
-        margin-bottom:20px;
-    }
-
-    .form-control,
-    .form-select{
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        color:white;
-    }
-
-    .form-control:focus,
-    .form-select:focus{
-        background: rgba(255,255,255,0.08);
-        color:white;
-        border-color:#d4af37;
-        box-shadow:none;
-    }
-
-    .form-select option{
-        background:#111;
-        color:white;
-    }
-
-    .table{
-        color:white;
-    }
-
-    .table thead th{
-        color: #929292;
-        border-bottom: 1px solid rgba(255,255,255,0.15);
-        font-weight: 500;
-    }
-
-    .table-hover tbody tr{
-        transition: all .25s ease;
-    }
-
-    .table-hover tbody tr:hover{
-        background: rgba(212,175,55,0.08);
-    }
-
-    .table-hover tbody tr:hover td,
-    .table-hover tbody tr:hover th{
-        color: white;
-    }
-    
-    .btn-dark-custom{
-        flex:1;
-        background:transparent;
-        border:1px solid rgba(255,255,255,.15);
-        border-color:#c9a96e;
-        color:#c9a96e;
-        border-radius:12px;
-        padding:10px;
-        text-decoration:none;
-        text-align:center;
-        margin: 5px;
-    }
-
-    .btn-dark-custom:hover{
-        background:#c9a96e;
-        color:white;
-    }
-
-    .btn-delete{
-        border-color:#dc3545;
-        color:#dc3545;
-    }
-
-    .btn-delete:hover{
-        background:#dc3545;
-        color:white;
-    }
-
-</style>
+    <script src="scripts.js"></script>
+    <?php if($op == 'edit') { ?>
     <script>
-    const observer = new IntersectionObserver(
-    (entries)=>{
-        entries.forEach(entry=>{
-            if(entry.isIntersecting){ entry.target.classList.add("show"); }
-            else { entry.target.classList.remove("show");}
-        });
-    },{ threshold:0.15 });
-
-    document
-    .querySelectorAll(".fade-up")
-    .forEach(el=>observer.observe(el));
+    window.onload = function(){
+        document.getElementById("modalContainer").classList.add("show");
+    }
     </script>
+    <?php } ?>
 </body>
 </html>

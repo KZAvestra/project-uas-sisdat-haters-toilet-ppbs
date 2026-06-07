@@ -17,7 +17,7 @@ if (!isset($_SESSION['role'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1">
 </head>
 
 <body style="background:#0d0d0d;color:white;">
@@ -130,13 +130,6 @@ if (!isset($_SESSION['role'])) {
 </div>
 
 <style>
-
-.gold-line{
-    width:500px;
-    height:2px;
-    background:#c9a96e;
-    margin:20px auto;
-}
 
 .profile-header{
     text-align:center;

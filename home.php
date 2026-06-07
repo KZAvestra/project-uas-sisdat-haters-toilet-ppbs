@@ -31,7 +31,7 @@ while($row = mysqli_fetch_array($q)) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1">
 </head>
 
 <body style="background:#0d0d0d;color:white;">
@@ -73,7 +73,6 @@ while($row = mysqli_fetch_array($q)) {
             <div class="hero fade-up">
                 <br>
                 <h1>Halo, Admin!</h1>
-                <div class="gold-line"></div>
                 <p>Selamat datang di Panel Admin Sistem Inventaris Galeri. <br>Siap kerja?</p>
             </div>
 
@@ -89,14 +88,10 @@ while($row = mysqli_fetch_array($q)) {
 
             <div class="hero fade-up">
                 <br>
-                <h1>Halo, <?php echo $_SESSION['nama']; ?>!</h1>
-                <div class="gold-line"></div>
+                <h1>Halo, <?php echo !empty($_SESSION['nama']) ? $_SESSION['nama'] : $_SESSION['username']; ?>!</h1>
                 <p>Selamat datang di Galeri Lukisan PPBS: Menampilkan koleksi karya seni, mengelola inventaris galeri,
                 <br>dan mempermudah proses pembelian dalam satu platform.</p>
             </div>
-
-            <br><br><br>
-
         </div>
 
     <?php } ?>
@@ -217,22 +212,6 @@ while($row = mysqli_fetch_array($q)) {
 .price{
     font-weight:bold;
     font-size:18px;
-}
-
-.hero{
-    text-align:center;
-    padding:80px 0 50px;
-}
-
-.hero h1{
-    font-family:"Times New Roman", serif;
-    font-size:70px;
-    letter-spacing:3px;
-}
-
-.hero p{
-    color:#bdbdbd;
-    margin-top:15px;
 }
 
 
